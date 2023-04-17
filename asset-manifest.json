@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/react-sinatra-project/static/css/main.073c9b0a.css",
+    "main.js": "/react-sinatra-project/static/js/main.ca309cf2.js",
+    "static/js/787.7c5204b8.chunk.js": "/react-sinatra-project/static/js/787.7c5204b8.chunk.js",
+    "static/media/logo.svg": "/react-sinatra-project/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/react-sinatra-project/index.html",
+    "main.073c9b0a.css.map": "/react-sinatra-project/static/css/main.073c9b0a.css.map",
+    "main.ca309cf2.js.map": "/react-sinatra-project/static/js/main.ca309cf2.js.map",
+    "787.7c5204b8.chunk.js.map": "/react-sinatra-project/static/js/787.7c5204b8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.ca309cf2.js"
+  ]
+}
