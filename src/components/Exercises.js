@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ExerciseCard from "./ExerciseCard";
 
-export default function Exercises({ exercises, addExercise, removeExerciseThenUpdate }) {
+export default function Exercises({ exercises, addExercise }) {
 
     const [newExerciseName, setNewExerciseName] = useState('')
     const [newExerciseDescription, setNewExerciseDescription] = useState('')
@@ -53,9 +53,6 @@ export default function Exercises({ exercises, addExercise, removeExerciseThenUp
                     <button rows={8} cols={40} type="submit">Submit</button>
                 </form>
             </div>
-            {exercises.map((exercise) => (
-                <ExerciseCard key={exercise.id} exercise={exercise} removeExercise={removeExerciseThenUpdate}/>
-            ))}
         </div>
     )
 }

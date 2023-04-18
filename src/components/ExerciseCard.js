@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function ExerciseCard({ exercise, removeExerciseThenUpdate }) {
+export default function ExerciseCard({ exercise, removeExerciseThenUpdate, addWorkout }) {
 
     const [reps, setReps] = useState('')
     const [weight, setWeight] = useState('')
@@ -19,6 +19,8 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate }) {
         fetch(`http://localhost:9292/exercises/${exercise.id}`, {
             method: "DELETE",
         })
+        .then((r) => r.json())
+        .then((d) => removeExerciseThenUpdate(d))
     }
 
     const newWorkout = {
@@ -30,7 +32,6 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate }) {
     function handleWorkoutSubmit(e) {
         e.preventDefault()
 
-        console.log(exercise.id)
         fetch("http://localhost:9292/workouts", {
             method: 'POST',
             headers: {
@@ -40,8 +41,7 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate }) {
         })
             .then((r) => r.json())
             .then((d) => {
-                console.log(d)
-
+                addWorkout(d)
                 setReps('')
                 setWeight('')
             })
