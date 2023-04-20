@@ -1,8 +1,10 @@
 import './App.css';
-import Exercises from './components/Exercises';
-import ExerciseCard from './components/ExerciseCard';
 import { useState, useEffect } from 'react';
-
+import { Route, Switch } from 'react-router-dom';
+import Exercises from './components/Exercises';
+import Workouts from './components/Workouts';
+import PageNavLinks from './components/PageNavLinks';
+import Home from './components/Home';
 
 function App() {
 
@@ -17,7 +19,6 @@ function App() {
   function addExercise(newExercise) {
     setExercises([...exercises, newExercise])
   }
-  console.log(exercises)
 
   function addWorkout(newWorkout) {
 
@@ -29,9 +30,21 @@ function App() {
     let newArr = [...exercises]
 
     const index = newArr.findIndex(obj => obj.id === exercise.id)
-    
+
     if (index !== -1) {
       newArr[index] = exercise
+      setExercises(newArr)
+    }
+  }
+
+  function updateExercise(newExercise) {
+
+    const newArr = [...exercises]
+
+    const index = newArr.findIndex(obj => obj.id = newExercise.id)
+
+    if (index !== -1) {
+      newArr[index] = newExercise
       setExercises(newArr)
     }
   }
@@ -42,10 +55,18 @@ function App() {
 
   return (
     <div>
-      <Exercises exercises={exercises} addExercise={addExercise} />
-      {exercises.map((exercise) => (
-        <ExerciseCard key={exercise.id} exercise={exercise} removeExerciseThenUpdate={removeExerciseThenUpdate} addWorkout={addWorkout}/>
-      ))}
+      <PageNavLinks />
+      <Switch>
+        <Route path="/exercises">
+          <Exercises exercises={exercises} addExercise={addExercise} removeExerciseThenUpdate={removeExerciseThenUpdate} updateExercise={updateExercise} />
+        </Route>
+        <Route path="/workouts">
+          <Workouts exercises={exercises} addWorkout={addWorkout}/>
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }

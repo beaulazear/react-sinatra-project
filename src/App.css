@@ -37,6 +37,30 @@
   color: rgb(255, 255, 255, .7);
 }
 
+.navButtons {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: lightskyblue;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.navButtons:hover {
+  background-color: #3e8e41;
+}
+
+.pageNavLinks {
+  text-align: center;
+}
+
 .pageHeaders {
   text-align: center;
   padding-left: 10px;
@@ -46,7 +70,6 @@
 .newExerciseFormDiv {
   text-align: center;
   font-family: Arial, sans-serif;
-  border-radius: 10px;
   width: 400px;
   margin: 0 auto;
   background-color: lightpink;
@@ -55,8 +78,14 @@
 .exerciseCard {
   text-align: center;
   font-family: Arial, sans-serif;
-  padding-bottom: 5px;
-  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
+  background-color: lightpink;
+}
+
+.workoutCardDiv {
+  text-align: center;
+  font-family: Arial, sans-serif;
   width: 400px;
   margin: 0 auto;
   background-color: lightpink;

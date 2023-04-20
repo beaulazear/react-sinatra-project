@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ExerciseCard from "./ExerciseCard";
 
-export default function Exercises({ exercises, addExercise }) {
+export default function Exercises({ exercises, addExercise, removeExerciseThenUpdate, addWorkout, updateExercise }) {
 
     const [newExerciseName, setNewExerciseName] = useState('')
     const [newExerciseDescription, setNewExerciseDescription] = useState('')
-    
+
     function handleAddNewExerciseName(e) {
         setNewExerciseName(e.target.value)
     }
@@ -42,7 +42,7 @@ export default function Exercises({ exercises, addExercise }) {
 
     return (
         <div id="exercises">
-            <h1 className="pageHeaders">Exercise / Workout Log</h1>
+            <h1 className="pageHeaders">Exercises</h1>
             <div className="newExerciseFormDiv">
                 <form id="newExerciseForm" onSubmit={handleFormSubmit}>
                     <h2>New Exercise Form</h2>
@@ -53,6 +53,9 @@ export default function Exercises({ exercises, addExercise }) {
                     <button rows={8} cols={40} type="submit">Submit</button>
                 </form>
             </div>
+            {exercises.map((exercise) => (
+                <ExerciseCard key={exercise.id} exercise={exercise} removeExerciseThenUpdate={removeExerciseThenUpdate} addWorkout={addWorkout} updateExercise={updateExercise} />
+            ))}
         </div>
     )
 }

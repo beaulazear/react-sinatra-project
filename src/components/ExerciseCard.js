@@ -1,50 +1,46 @@
 import React, { useState } from "react";
 
-export default function ExerciseCard({ exercise, removeExerciseThenUpdate, addWorkout }) {
+export default function ExerciseCard({ exercise, removeExerciseThenUpdate, updateExercise }) {
 
-    const [reps, setReps] = useState('')
-    const [weight, setWeight] = useState('')
+    const [exerciseName, setExerciseName] = useState('')
+    const [exerciseDesc, setExerciseDesc] = useState('')
+
+    function handleExerciseName(e) {
+        setExerciseName(e.target.value)
+    }
+    function handleExerciseDesc(e) {
+        setExerciseDesc(e.target.value)
+    }
 
     const lastTwoWorkouts = exercise.workouts.slice(-2)
-
-    function handleSetReps(e) {
-        setReps(e.target.value)
-    }
-
-    function handleSetWeight(e) {
-        setWeight(e.target.value)
-    }
 
     function removeExercise() {
         fetch(`http://localhost:9292/exercises/${exercise.id}`, {
             method: "DELETE",
         })
-        .then((r) => r.json())
-        .then((d) => removeExerciseThenUpdate(d))
+            .then((r) => r.json())
+            .then((d) => removeExerciseThenUpdate(d))
     }
 
-    const newWorkout = {
-        reps: reps,
-        weight: weight,
-        exercise_id: exercise.id
-    }
-
-    function handleWorkoutSubmit(e) {
+    function updateExerciseSubmit(e) {
         e.preventDefault()
 
-        fetch("http://localhost:9292/workouts", {
-            method: 'POST',
+        fetch(`http://localhost:9292/exercises/${exercise.id}`, {
+            method: "PATCH",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(newWorkout)
+            body: JSON.stringify({
+                name: exerciseName,
+                description: exerciseDesc,
+            }),
         })
-            .then((r) => r.json())
-            .then((d) => {
-                addWorkout(d)
-                setReps('')
-                setWeight('')
-            })
+        .then((r) => r.json())
+        .then((d) => {
+            updateExercise(d)
+            setExerciseDesc('')
+            setExerciseName('')
+        })
     }
 
     if (!exercise) return <h2>...loading</h2>
@@ -53,14 +49,13 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate, addWo
         <div className="exerciseCard">
             <h2>{exercise.name}</h2>
             <p>{exercise.description}</p>
-            <form onSubmit={handleWorkoutSubmit} className="newWorkoutForm">
-                <h3>Add New Workout:</h3>
-                <p>Please use only whole numbers for input! Weight is in lbs.</p>
-                <input type="text" placeholder="Reps" value={reps} onChange={handleSetReps}></input>
+            <form id="newExerciseForm" onSubmit={updateExerciseSubmit}>
+                <h3>Update Exercise:</h3>
+                <input type="text" placeholder="Exercise Name" value={exerciseName} onChange={handleExerciseName}></input>
                 <br></br>
-                <input type="text" placeholder="Weight (lbs)" value={weight} onChange={handleSetWeight}></input>
+                <textarea type="text" placeholder="Exercise Description" value={exerciseDesc} onChange={handleExerciseDesc}></textarea>
                 <br></br>
-                <button type="sumit">Submit</button>
+                <button rows={8} cols={40} type="submit">Submit</button>
             </form>
             <p>Listed below are the weights used / reps completed for the last two times you've performed this exercise!</p>
             {/* how could I make an if statement here? ex.. if !exercise.workouts, return "No workouts yet!" */}
@@ -71,7 +66,6 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate, addWo
                     </div>
                 ))}
             </ul>
-            <br></br>
             <button className="button-18" onClick={removeExercise}>Remove exercise</button>
         </div>
     )
