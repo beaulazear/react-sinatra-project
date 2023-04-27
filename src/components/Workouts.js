@@ -6,7 +6,7 @@ export default function Workouts({ exercises, addWorkout }) {
         <div id="workoutsDiv">
             <h1 className="pageHeaders">Workouts</h1>
             {exercises.map((exercise) => (
-                <WorkoutCard key={exercise.id} exercise={exercise} addWorkout={addWorkout} />
+                <WorkoutCard key={exercise.id} exercise={exercise} exercises={exercises} addWorkout={addWorkout} />
             ))}
         </div>
     )

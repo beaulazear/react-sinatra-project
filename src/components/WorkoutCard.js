@@ -1,12 +1,22 @@
 import React from "react";
 import { useState } from "react";
+import BarChart from "./BarChart";
 
 export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout }) {
 
     const [reps, setReps] = useState('')
     const [weight, setWeight] = useState('')
+    const [selectValue, setSelectValue] = useState('')
 
     const lastTenWorkouts = exercise.workouts.slice(-10)
+    const lastTwoWorkouts = exercise.workouts.slice(-2)
+    const lastTenWorkoutsWeights = lastTenWorkouts.map((w) => w.weight)
+    const selectOptions = [2, 10, "All"]
+
+    function handleSelectChange(e) {
+        console.log(e.target.value)
+        setSelectValue(e.target.value)
+    }
 
     function handleSetReps(e) {
         setReps(e.target.value)
@@ -50,7 +60,17 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
                 <input type="text" placeholder="Weight (lbs)" value={weight} onChange={handleSetWeight}></input>
                 <br></br>
                 <button type="submit">Submit</button>
-                <p>See last 10 workouts below</p>
+            </form>
+            <br></br>
+            <select onChange={handleSelectChange}>
+                <option>Please choose an option</option>
+                {selectOptions.map((option, index) => {
+                    return <option key={index} >
+                        {option}
+                    </option>
+                })}
+            </select>
+            {selectValue == 10 ? (
                 <ul id="exerciseNewWorkoutUl">
                     {lastTenWorkouts.map((workout) => (
                         <div key={workout.id}>
@@ -58,7 +78,25 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
                         </div>
                     ))}
                 </ul>
-            </form>
+            ) : selectValue == 2 ? (
+                <ul id="exerciseNewWorkoutUl">
+                    {lastTwoWorkouts.map((workout) => (
+                        <div key={workout.id}>
+                            <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
+                        </div>
+                    ))}
+                </ul>
+            ) : selectValue == "All" ? (
+                <ul id="exerciseNewWorkoutUl">
+                    {exercise.workouts.map((workout) => (
+                        <div key={workout.id}>
+                            <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
+                        </div>
+                    ))}
+                </ul>
+            ) : <p>Select an option above to view past workouts!</p>}
+            <p>See data visualization for recent weight trends below.</p>
+            <BarChart data={lastTenWorkoutsWeights} />
         </div>
     )
 }

@@ -45,6 +45,7 @@ function App() {
 
     if (index !== -1) {
       newArr[index] = newExercise
+      console.log(newArr)
       setExercises(newArr)
     }
   }
