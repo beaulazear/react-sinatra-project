@@ -44,14 +44,16 @@ export default function Exercises({ exercises, addExercise, removeExerciseThenUp
         <div id="exercises">
             <h1 className="pageHeaders">Exercises</h1>
             <div className="newExerciseFormDiv">
+            <p className="cardTextArea">
                 <form id="newExerciseForm" onSubmit={handleFormSubmit}>
                     <h2>New Exercise Form</h2>
                     <input type="text" placeholder="Exercise Name" value={newExerciseName} onChange={handleAddNewExerciseName}></input>
                     <br></br>
-                    <textarea type="text" placeholder="Exercise Description" value={newExerciseDescription} onChange={handleAddNewExerciseDescription}></textarea>
+                    <textarea rows={8} cols={60} type="text" placeholder="Exercise Description" value={newExerciseDescription} onChange={handleAddNewExerciseDescription}></textarea>
                     <br></br>
-                    <button rows={8} cols={40} type="submit">Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
+                </p>
             </div>
             {exercises.map((exercise) => (
                 <ExerciseCard key={exercise.id} exercise={exercise} removeExerciseThenUpdate={removeExerciseThenUpdate} addWorkout={addWorkout} updateExercise={updateExercise} />

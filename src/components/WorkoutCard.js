@@ -4,8 +4,8 @@ import BarGraph from "./BarChart";
 
 export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout }) {
 
-    const [reps, setReps] = useState('')
-    const [weight, setWeight] = useState('')
+    const [reps, setReps] = useState(0)
+    const [weight, setWeight] = useState(0)
     const [selectValue, setSelectValue] = useState('')
     const lastTenWorkouts = exercise.workouts.slice(-10)
     const lastTwoWorkouts = exercise.workouts.slice(-2)
@@ -50,52 +50,56 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
     }
     return (
         <div className="workoutCardDiv">
-            <form onSubmit={handleWorkoutSubmit} className="newWorkoutForm">
-                <h2>{exercise.name}</h2>
-                <h3>Add New Workout:</h3>
-                <p>Please use only whole numbers for input! Weight is in lbs.</p>
-                <input type="text" placeholder="Reps" value={0} onChange={handleSetReps}></input>
+            <p className="cardTextArea">
+                <form onSubmit={handleWorkoutSubmit} className="newWorkoutForm">
+                    <h2>{exercise.name}</h2>
+                    <h3>Add New Workout:</h3>
+                    <p>Please use only whole numbers for input!</p>
+                    <label for="reps">Reps</label>
+                    <input id="reps" type="text" placeholder="Reps" value={reps} onChange={handleSetReps}></input>
+                    <br></br>
+                    <label for="weight">Weight in lbs</label>
+                    <input id="weight" type="text" placeholder="Weight (lbs)" value={weight} onChange={handleSetWeight}></input>
+                    <br></br>
+                    <button type="submit">Submit</button>
+                </form>
                 <br></br>
-                <input type="text" placeholder="Weight (lbs)" value={0} onChange={handleSetWeight}></input>
-                <br></br>
-                <button type="submit">Submit</button>
-            </form>
-            <br></br>
-            <select onChange={handleSelectChange}>
-                <option>Please choose an option</option>
-                {selectOptions.map((option, index) => {
-                    return <option key={index} >
-                        {option}
-                    </option>
-                })}
-            </select>
-            {selectValue == 10 ? (
-                <ul id="exerciseNewWorkoutUl">
-                    {lastTenWorkouts.map((workout) => (
-                        <div key={workout.id}>
-                            <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
-                        </div>
-                    ))}
-                </ul>
-            ) : selectValue == 2 ? (
-                <ul id="exerciseNewWorkoutUl">
-                    {lastTwoWorkouts.map((workout) => (
-                        <div key={workout.id}>
-                            <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
-                        </div>
-                    ))}
-                </ul>
-            ) : selectValue == "All" ? (
-                <ul id="exerciseNewWorkoutUl">
-                    {exercise.workouts.map((workout) => (
-                        <div key={workout.id}>
-                            <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
-                        </div>
-                    ))}
-                </ul>
-            ) : <p>Select an option above to view past workouts!</p>}
-            <p>See data visualization for recent weight trends below.</p>
-            <BarGraph data={lastTenWorkoutsWeights} />
+                <select onChange={handleSelectChange}>
+                    <option>Please choose an option</option>
+                    {selectOptions.map((option, index) => {
+                        return <option key={index} >
+                            {option}
+                        </option>
+                    })}
+                </select>
+                {selectValue == 10 ? (
+                    <ul id="exerciseNewWorkoutUl">
+                        {lastTenWorkouts.map((workout) => (
+                            <div key={workout.id}>
+                                <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
+                            </div>
+                        ))}
+                    </ul>
+                ) : selectValue == 2 ? (
+                    <ul id="exerciseNewWorkoutUl">
+                        {lastTwoWorkouts.map((workout) => (
+                            <div key={workout.id}>
+                                <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
+                            </div>
+                        ))}
+                    </ul>
+                ) : selectValue == "All" ? (
+                    <ul id="exerciseNewWorkoutUl">
+                        {exercise.workouts.map((workout) => (
+                            <div key={workout.id}>
+                                <li>{workout.reps} reps at {workout.weight} lbs on {new Date(workout.created_at).toDateString()}</li>
+                            </div>
+                        ))}
+                    </ul>
+                ) : <p>Select an option above to view past workouts!</p>}
+                <p>See data visualization for recent weight trends below.</p>
+                <BarGraph data={lastTenWorkoutsWeights} />
+            </p>
         </div>
     )
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 export default function ExerciseCard({ exercise, removeExerciseThenUpdate, updateExercise }) {
 
-    const [exerciseName, setExerciseName] = useState('')
-    const [exerciseDesc, setExerciseDesc] = useState('')
+    const [exerciseName, setExerciseName] = useState(exercise.name)
+    const [exerciseDesc, setExerciseDesc] = useState(exercise.description)
 
     function handleExerciseName(e) {
         setExerciseName(e.target.value)
@@ -47,15 +47,18 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate, updat
 
     return (
         <div className="exerciseCard">
+            <p className="cardTextArea">
             <h2>{exercise.name}</h2>
             <p>{exercise.description}</p>
             <form id="newExerciseForm" onSubmit={updateExerciseSubmit}>
                 <h3>Update Exercise:</h3>
-                <input type="text" placeholder="Exercise Name" value={exercise.name} onChange={handleExerciseName}></input>
+                <label for="nameInput">Name</label>
+                <input id="nameInput" type="text" placeholder="Exercise Name" value={exerciseName} onChange={handleExerciseName}></input>
                 <br></br>
-                <textarea type="text" placeholder="Exercise Description" value={exercise.description} onChange={handleExerciseDesc}></textarea>
+                <label for="descriptionInput">Description</label>
+                <textarea rows={8} cols={40} id="descriptionInput" type="text" placeholder="Exercise Description" value={exerciseDesc} onChange={handleExerciseDesc}></textarea>
                 <br></br>
-                <button rows={8} cols={40} type="submit">Submit</button>
+                <button type="submit">Submit</button>
             </form>
             <p>Listed below are the weights used / reps completed for the last two times you've performed this exercise!</p>
             {/* how could I make an if statement here? ex.. if !exercise.workouts, return "No workouts yet!" */}
@@ -67,6 +70,7 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate, updat
                 ))}
             </ul>
             <button className="button-18" onClick={removeExercise}>Remove exercise</button>
+            </p>
         </div>
     )
 }
