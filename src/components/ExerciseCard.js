@@ -51,9 +51,9 @@ export default function ExerciseCard({ exercise, removeExerciseThenUpdate, updat
             <p>{exercise.description}</p>
             <form id="newExerciseForm" onSubmit={updateExerciseSubmit}>
                 <h3>Update Exercise:</h3>
-                <input type="text" placeholder="Exercise Name" value={exerciseName} onChange={handleExerciseName}></input>
+                <input type="text" placeholder="Exercise Name" value={exercise.name} onChange={handleExerciseName}></input>
                 <br></br>
-                <textarea type="text" placeholder="Exercise Description" value={exerciseDesc} onChange={handleExerciseDesc}></textarea>
+                <textarea type="text" placeholder="Exercise Description" value={exercise.description} onChange={handleExerciseDesc}></textarea>
                 <br></br>
                 <button rows={8} cols={40} type="submit">Submit</button>
             </form>

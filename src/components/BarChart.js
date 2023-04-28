@@ -1,21 +1,32 @@
-import React from 'react';
-
-function BarChart({ data }) {
-  const maxValue = Math.max(...data);
+const BarGraph = ({ data }) => {
+  const sortedData = data.sort((a, b) => a.id - b.id);
 
   return (
-    <div className="bar-chart">
-      {data.map((number, index) => (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-end",
+      }}
+    >
+      {sortedData.map((d) => (
         <div
-          key={index}
-          className="bar"
-          style={{ height: `${(number / maxValue) * 100}%` }}
+          key={d.id}
+          style={{
+            width: "45px",
+            height: `${d.weight}px`,
+            backgroundColor: "#0074D9",
+            margin: "2px",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+          }}
         >
-          {number}
+          <div style={{ color: "#FFFFFF" }}>{d.weight}</div>
         </div>
       ))}
     </div>
   );
-}
+};
 
-export default BarChart;
+export default BarGraph;

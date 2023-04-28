@@ -38,16 +38,7 @@ function App() {
   }
 
   function updateExercise(newExercise) {
-
-    const newArr = [...exercises]
-
-    const index = newArr.findIndex(obj => obj.id = newExercise.id)
-
-    if (index !== -1) {
-      newArr[index] = newExercise
-      console.log(newArr)
-      setExercises(newArr)
-    }
+    setExercises(exercises.map(e => e.id === newExercise.id ? newExercise : e))
   }
 
   function removeExerciseThenUpdate(removedExercise) {

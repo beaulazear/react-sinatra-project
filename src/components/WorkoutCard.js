@@ -1,16 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import BarChart from "./BarChart";
+import BarGraph from "./BarChart";
 
 export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout }) {
 
     const [reps, setReps] = useState('')
     const [weight, setWeight] = useState('')
     const [selectValue, setSelectValue] = useState('')
-
     const lastTenWorkouts = exercise.workouts.slice(-10)
     const lastTwoWorkouts = exercise.workouts.slice(-2)
-    const lastTenWorkoutsWeights = lastTenWorkouts.map((w) => w.weight)
+    const lastTenWorkoutsWeights = lastTenWorkouts.map(({ weight, id }) => ({ weight, id }))
     const selectOptions = [2, 10, "All"]
 
     function handleSelectChange(e) {
@@ -55,9 +54,9 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
                 <h2>{exercise.name}</h2>
                 <h3>Add New Workout:</h3>
                 <p>Please use only whole numbers for input! Weight is in lbs.</p>
-                <input type="text" placeholder="Reps" value={reps} onChange={handleSetReps}></input>
+                <input type="text" placeholder="Reps" value={0} onChange={handleSetReps}></input>
                 <br></br>
-                <input type="text" placeholder="Weight (lbs)" value={weight} onChange={handleSetWeight}></input>
+                <input type="text" placeholder="Weight (lbs)" value={0} onChange={handleSetWeight}></input>
                 <br></br>
                 <button type="submit">Submit</button>
             </form>
@@ -96,7 +95,7 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
                 </ul>
             ) : <p>Select an option above to view past workouts!</p>}
             <p>See data visualization for recent weight trends below.</p>
-            <BarChart data={lastTenWorkoutsWeights} />
+            <BarGraph data={lastTenWorkoutsWeights} />
         </div>
     )
 }
