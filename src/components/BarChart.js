@@ -1,3 +1,6 @@
+// This component is not a part of my Phase-3 project! It is for personal use only.
+
+
 const BarGraph = ({ data }) => {
   const sortedData = data.sort((a, b) => a.id - b.id);
 

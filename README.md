@@ -1,3 +1,11 @@
+# App rundown by creator
+
+Hi! This is the front end portion of my Phase-3 project for the Flatiron school. Run locally with a json-server. Clone the backend as well, and run rake server to handle fetch requests from front end. See following for link:
+
+# Backend repository link
+
+https://github.com/beaulazear/phase-3-sinatra-react-project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
