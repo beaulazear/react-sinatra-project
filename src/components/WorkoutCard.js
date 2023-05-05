@@ -97,7 +97,7 @@ export default function WorkoutCard({ exercise, handleWorkoutSubmit, addWorkout 
                         ))}
                     </ul>
                 ) : <p>Select an option above to view past workouts!</p>}
-                <p>See data visualization for recent weight trends below.</p>
+                {/* <p>See data visualization for recent weight trends below.</p> */}
                 {/* The component below is not a part of my project, it is for personal use only! */}
                 {/* <BarGraph data={lastTenWorkoutsWeights} /> */}
             </p>
